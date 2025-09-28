@@ -1,2 +1,58 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Sosmed {
+    string nama;
+    int penggunaHarian; // jumlah pengguna harian
+};
+
+// Fungsi Selection Sort (ascending)
+void selectionSort(Sosmed arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j].penggunaHarian < arr[minIndex].penggunaHarian) {
+                minIndex = j;
+            }
+        }
+        // Tukar posisi
+        Sosmed temp = arr[minIndex];
+        arr[minIndex] = arr[i];
+        arr[i] = temp;
+    }
+}
+
+// Cetak hasil
+void printData(Sosmed arr[], int n) {
+    cout << "\n=== Jumlah Pengguna Harian Sosial Media (Ascending) ===\n";
+    for (int i = 0; i < n; i++) {
+        cout << i + 1 << ". " << arr[i].nama 
+             << " - " << arr[i].penggunaHarian << " juta pengguna\n";
+    }
+}
+
+int main() {
+    int n;
+    cout << "Masukkan jumlah sosial media: ";
+    cin >> n;
+
+    Sosmed medsos[n];
+
+    // Input data
+    for (int i = 0; i < n; i++) {
+        cout << "\nNama sosmed ke-" << i + 1 << ": ";
+        cin >> ws; // bersihkan spasi
+        getline(cin, medsos[i].nama);
+        cout << "Jumlah pengguna harian (juta): ";
+        cin >> medsos[i].penggunaHarian;
+    }
+
+    // Urutkan ascending (terkecil → terbesar)
+    selectionSort(medsos, n);
+
+    // Tampilkan hasil
+    printData(medsos, n);
+
+    return 0;
+}
