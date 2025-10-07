@@ -2,57 +2,37 @@
 #include <string>
 using namespace std;
 
-struct Sosmed {
-    string nama;
-    int penggunaHarian; // jumlah pengguna harian
-};
-
-// Fungsi Selection Sort (ascending)
-void selectionSort(Sosmed arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        int minIndex = i;
-        for (int j = i + 1; j < n; j++) {
-            if (arr[j].penggunaHarian < arr[minIndex].penggunaHarian) {
-                minIndex = j;
-            }
-        }
-        // Tukar posisi
-        Sosmed temp = arr[minIndex];
-        arr[minIndex] = arr[i];
-        arr[i] = temp;
-    }
-}
-
-// Cetak hasil
-void printData(Sosmed arr[], int n) {
-    cout << "\n=== Jumlah Pengguna Harian Sosial Media (Ascending) ===\n";
-    for (int i = 0; i < n; i++) {
-        cout << i + 1 << ". " << arr[i].nama 
-             << " - " << arr[i].penggunaHarian << " juta pengguna\n";
-    }
-}
-
 int main() {
     int n;
-    cout << "Masukkan jumlah sosial media: ";
+
+    cout << "Masukkan jumlah mahasiswa: ";
     cin >> n;
 
-    Sosmed medsos[n];
+    long npm[n];  // menggunakan long agar bisa menampung NPM panjang (misal 2415061100)
 
-    // Input data
+    cout << "\nMasukkan NPM masing-masing mahasiswa:\n";
     for (int i = 0; i < n; i++) {
-        cout << "\nNama sosmed ke-" << i + 1 << ": ";
-        cin >> ws; // bersihkan spasi
-        getline(cin, medsos[i].nama);
-        cout << "Jumlah pengguna harian (juta): ";
-        cin >> medsos[i].penggunaHarian;
+        cout << "NPM ke-" << i + 1 << ": ";
+        cin >> npm[i];
     }
 
-    // Urutkan ascending (terkecil → terbesar)
-    selectionSort(medsos, n);
+    // Proses Bubble Sort (dari terkecil ke terbesar)
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (npm[j] > npm[j + 1]) {
+                // tukar posisi
+                long temp = npm[j];
+                npm[j] = npm[j + 1];
+                npm[j + 1] = temp;
+            }
+        }
+    }
 
-    // Tampilkan hasil
-    printData(medsos, n);
+    cout << "\nNPM setelah diurutkan (dari terkecil ke terbesar):\n";
+    for (int i = 0; i < n; i++) {
+        cout << npm[i] << " ";
+    }
+    cout << endl;
 
     return 0;
 }
